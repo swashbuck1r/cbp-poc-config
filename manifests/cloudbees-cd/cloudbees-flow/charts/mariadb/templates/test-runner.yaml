@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "mariadb-test-85qzu"
+  name: "mariadb-test-w1pva"
   namespace: cloudbees-cd
   annotations:
     "helm.sh/hook": test-success
