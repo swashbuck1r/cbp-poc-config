@@ -1,0 +1,11 @@
+---
+# Source: cloudbees-flow/templates/configmap-custom-scripts.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "cloudbees-cd-customscript"
+  labels:
+    app: cloudbees-flow
+    chart: cloudbees-flow
+data:
+  custom-install.sh: ZWNobw==

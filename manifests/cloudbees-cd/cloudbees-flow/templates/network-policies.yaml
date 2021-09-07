@@ -1,0 +1,150 @@
+---
+# Source: cloudbees-flow/templates/network-policies.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: web-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: flow-web
+      release: cloudbees-cd
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - port: 2080
+          protocol: TCP
+        - port: 2443
+          protocol: TCP
+      from:
+        - ipBlock:
+            cidr: "0.0.0.0/0"
+        - podSelector:
+            matchLabels:
+              app: flow-bound-agent
+              release: cloudbees-cd
+        - podSelector:
+            matchLabels:
+              app: flow-server
+              release: cloudbees-cd
+---
+# Source: cloudbees-flow/templates/network-policies.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: repository-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: flow-repository
+      release: cloudbees-cd
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - port: 8200
+          protocol: TCP
+      from:
+        - podSelector:
+            matchLabels:
+              app: flow-bound-agent
+              release: cloudbees-cd
+        - podSelector:
+            matchLabels:
+              app: flow-server
+              release: cloudbees-cd
+
+        - ipBlock:
+            cidr: "0.0.0.0/0"
+---
+# Source: cloudbees-flow/templates/network-policies.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: server-policy
+spec:
+  podSelector:
+    matchLabels:
+      app: flow-server
+      release: cloudbees-cd
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - port: 8000
+          protocol: TCP
+        - port: 8443
+          protocol: TCP
+        - port: 61613
+          protocol: TCP
+        - port: 5445
+          protocol: TCP
+        - port: 5446
+          protocol: TCP
+        - port: 5447
+          protocol: TCP
+        - port: 5448
+          protocol: TCP
+        - port: 5449
+          protocol: TCP
+      from:
+        - podSelector:
+            matchLabels:
+              app: flow-bound-agent
+              release: cloudbees-cd
+        - podSelector:
+            matchLabels:
+              app: flow-web
+              release: cloudbees-cd
+        - podSelector:
+            matchLabels:
+              app: flow-repository
+              release: cloudbees-cd
+        - podSelector:
+            matchLabels:
+              app: flow-devopsinsight
+              release: cloudbees-cd
+        - podSelector:
+            matchLabels:
+              app: flow-server
+              release: cloudbees-cd
+
+        - ipBlock:
+            cidr: "0.0.0.0/0"
+---
+# Source: cloudbees-flow/templates/network-policies.yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+    name: dois-policy
+spec:
+    podSelector:
+        matchLabels:
+          app: flow-devopsinsight
+          release: cloudbees-cd
+    policyTypes:
+        - Ingress
+    ingress:
+      - ports:
+        - port: 9200
+          protocol: TCP
+        - port: 9500
+          protocol: TCP
+        from:
+          - podSelector:
+              matchLabels:
+                app: flow-server
+                release: cloudbees-cd
+
+          - ipBlock:
+              cidr: "0.0.0.0/0"
+
+      - ports:
+        - port: 9300
+          protocol: TCP
+        from:
+          - podSelector:
+              matchLabels:
+                app: flow-devopsinsight
+                release: cloudbees-cd

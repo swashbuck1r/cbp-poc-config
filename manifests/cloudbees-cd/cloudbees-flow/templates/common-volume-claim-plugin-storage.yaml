@@ -1,0 +1,12 @@
+---
+# Source: cloudbees-flow/templates/common-volume-claim-plugin-storage.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: "flow-server-shared"
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "5Gi"

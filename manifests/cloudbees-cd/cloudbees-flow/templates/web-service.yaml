@@ -1,0 +1,25 @@
+---
+# Source: cloudbees-flow/templates/web-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: flow-web
+  labels:
+    app: flow-web
+    chart: cloudbees-flow
+    release: cloudbees-cd
+    heritage: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - name: httpefwebserver
+      port: 80
+      protocol: TCP
+      targetPort: 2080
+    - name: httpsefwebserver
+      port: 443
+      protocol: TCP
+      targetPort: 2443
+  selector:
+    app: flow-web
+    release: cloudbees-cd

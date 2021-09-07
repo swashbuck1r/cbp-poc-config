@@ -1,0 +1,41 @@
+---
+# Source: cloudbees-flow/charts/nginx-ingress/templates/controller-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-connection-idle-timeout: "4000"
+  labels:
+    app: nginx-ingress
+    chart: nginx-ingress-1.25.0
+    component: "controller"
+    heritage: Helm
+    release: cloudbees-cd
+  name: cloudbees-cd-nginx-ingress-controller
+spec:
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: https
+    - name: "61613-tcp"
+      port: 61613
+      protocol: TCP
+      targetPort: "61613-tcp"
+    - name: "8200-tcp"
+      port: 8200
+      protocol: TCP
+      targetPort: "8200-tcp"
+    - name: "8443-tcp"
+      port: 8443
+      protocol: TCP
+      targetPort: "8443-tcp"
+  selector:
+    app: nginx-ingress
+    component: "controller"
+    release: cloudbees-cd
+  type: "LoadBalancer"

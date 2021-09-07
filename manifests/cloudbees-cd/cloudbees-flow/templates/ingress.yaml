@@ -1,0 +1,26 @@
+---
+# Source: cloudbees-flow/templates/ingress.yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: flow-ingress
+  labels:
+    app: flow
+    chart: cloudbees-flow
+    release: cloudbees-cd
+    heritage: Helm
+  annotations:
+    kubernetes.io/ingress.class: flow-ingress
+    nginx.ingress.kubernetes.io/affinity: cookie
+    nginx.ingress.kubernetes.io/proxy-body-size: 10G
+    nginx.ingress.kubernetes.io/secure-backends: "false"
+    nginx.ingress.kubernetes.io/session-cookie-hash: sha1
+    nginx.ingress.kubernetes.io/session-cookie-name: route
+spec:
+  rules:
+    - host: 
+      http:
+        paths:
+          - backend:
+              serviceName: flow-web
+              servicePort: 80

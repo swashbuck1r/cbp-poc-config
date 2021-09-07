@@ -1,0 +1,12 @@
+---
+# Source: cloudbees-flow/templates/repository-volume-claim.yaml
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: "flow-repo-artifacts"
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "10Gi"

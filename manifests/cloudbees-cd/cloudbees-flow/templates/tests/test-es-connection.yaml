@@ -1,0 +1,18 @@
+---
+# Source: cloudbees-flow/templates/tests/test-es-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: flow-devopsinsight-test-connection
+  labels:
+    app: flow-devopsinsight
+    chart: cloudbees-flow
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: mwendler/wget
+      command: ['sh']
+      args:  ['-c', 'wget --no-check-certificate "https://flow-devopsinsight.cloudbees-cd.svc.cluster.local:9200"; if [ $? -ne 6 ]; then echo failed; exit 1; fi']
+  restartPolicy: Never

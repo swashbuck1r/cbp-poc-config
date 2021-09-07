@@ -1,0 +1,91 @@
+---
+# Source: cloudbees-flow/templates/bound-agent-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flow-bound-agent
+  labels:
+    app: flow-bound-agent
+    chart: cloudbees-flow
+    release: cloudbees-cd
+    heritage: Helm
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flow-bound-agent
+      release: cloudbees-cd
+  template:
+    metadata:
+      labels:
+        app: flow-bound-agent
+        release: cloudbees-cd
+    spec:
+      nodeSelector:
+        kubernetes.io/os: linux
+      serviceAccountName: default
+      containers:
+        - name: flow-agent
+          image: "docker.io/cloudbees/cbflow-agent:10.2.1.150122_3.0_20210802"
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: CBF_RESOURCE_NAME
+            value: local
+          - name: CBF_RESOURCE_POOLS
+            value: "default"
+          - name: PUBLIC_HOSTNAME
+            value: flow-bound-agent
+          - name: CBF_SERVER_HOST
+            value: "flow-server"
+          - name: CBF_SERVER_USER
+            value: admin
+          - name: CBF_SERVER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: cd-server-password
+                key: CBF_SERVER_ADMIN_PASSWORD
+          - name: CBF_CONFIGURE
+            value: --agentInitMemoryMB=256 --agentMaxMemoryMB=256
+          readinessProbe:
+            tcpSocket:
+              port: 7800
+            initialDelaySeconds: 60
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command: ["/opt/cbflow/health-check"]
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/bash", "-c", "ectool --server $CBF_SERVER_HOST deleteResource $HOSTNAME"]
+            postStart:
+              exec:
+                command: ["/bin/bash", "/custom-scripts/custom-install.sh"]
+          ports:
+          - containerPort: 7800
+            name: p4-agent
+            protocol: TCP
+          resources:
+            limits:
+              cpu: 0.25
+              memory: 1024Mi
+            requests:
+              cpu: 0.25
+              memory: 512Mi
+          volumeMounts:
+          - name: logback-config
+            mountPath: /custom-config/agent/logback-local.groovy
+            subPath: agent-logback-config
+          - name: customscript-config
+            mountPath: /custom-scripts
+      volumes:
+      - name: logback-config
+        configMap:
+          name: flow-logging-config
+      - name: customscript-config
+        secret:
+          secretName: "cloudbees-cd-agent-customscript"

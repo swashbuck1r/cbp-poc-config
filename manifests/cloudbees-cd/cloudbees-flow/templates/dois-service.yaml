@@ -1,0 +1,26 @@
+---
+# Source: cloudbees-flow/templates/dois-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: flow-devopsinsight
+  labels:
+    app: flow-devopsinsight
+    chart: cloudbees-flow
+    release: cloudbees-cd
+    heritage: Helm
+spec:
+  type: ClusterIP
+  clusterIP: "None"
+  ports:
+    - name: servicep1-dois
+      port: 9200
+      targetPort: p1-dois
+      protocol: TCP
+    - name: servicep2-dois
+      port: 9500
+      targetPort: p2-dois
+      protocol: TCP
+  selector:
+    app: flow-devopsinsight
+    release: cloudbees-cd
