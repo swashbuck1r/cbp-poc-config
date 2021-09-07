@@ -1,0 +1,6 @@
+
+serviceAccount:
+  name: kubernetes-external-secrets
+  #annotations:
+  #  iam.gke.io/gcp-service-account: my-secrets-sa@$PROJECT.iam.gserviceaccount.com
+
