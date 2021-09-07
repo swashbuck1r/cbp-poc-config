@@ -3,7 +3,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: external-secrets-kubernetes-external-secrets
+  name: kubernetes-external-secrets
   labels:
     app.kubernetes.io/name: kubernetes-external-secrets
     helm.sh/chart: kubernetes-external-secrets-8.3.0
@@ -31,7 +31,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: external-secrets-kubernetes-external-secrets
+  name: kubernetes-external-secrets
   labels:
     app.kubernetes.io/name: kubernetes-external-secrets
     helm.sh/chart: kubernetes-external-secrets-8.3.0
@@ -40,7 +40,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: external-secrets-kubernetes-external-secrets
+  name: kubernetes-external-secrets
 subjects:
   - name: kubernetes-external-secrets
     namespace: "secret-infra"
@@ -50,7 +50,7 @@ subjects:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: external-secrets-kubernetes-external-secrets-auth
+  name: kubernetes-external-secrets-auth
   labels:
     app.kubernetes.io/name: kubernetes-external-secrets
     helm.sh/chart: kubernetes-external-secrets-8.3.0

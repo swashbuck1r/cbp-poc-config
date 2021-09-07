@@ -4,3 +4,5 @@ serviceAccount:
   annotations:
     iam.gke.io/gcp-service-account: cbp-loving-gelding-sm@arc-poc-cbp-test-0902-2.iam.gserviceaccount.com
 
+fullname: kubernetes-external-secrets
+fullnameOverride: kubernetes-external-secrets

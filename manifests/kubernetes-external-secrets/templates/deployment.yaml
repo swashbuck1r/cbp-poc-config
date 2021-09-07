@@ -3,7 +3,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: external-secrets-kubernetes-external-secrets
+  name: kubernetes-external-secrets
   namespace: "secret-infra"
   labels:
     app.kubernetes.io/name: kubernetes-external-secrets
