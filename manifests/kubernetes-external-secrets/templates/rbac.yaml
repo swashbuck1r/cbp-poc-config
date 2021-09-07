@@ -42,7 +42,7 @@ roleRef:
   kind: ClusterRole
   name: external-secrets-kubernetes-external-secrets
 subjects:
-  - name: external-secrets-kubernetes-external-secrets
+  - name: kubernetes-external-secrets
     namespace: "secret-infra"
     kind: ServiceAccount
 ---
@@ -61,6 +61,6 @@ roleRef:
   kind: ClusterRole
   name: system:auth-delegator
 subjects:
-- name: external-secrets-kubernetes-external-secrets
+- name: kubernetes-external-secrets
   namespace: "secret-infra"
   kind: ServiceAccount

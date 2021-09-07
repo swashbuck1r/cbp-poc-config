@@ -22,7 +22,7 @@ spec:
         app.kubernetes.io/name: kubernetes-external-secrets
         app.kubernetes.io/instance: external-secrets
     spec:
-      serviceAccountName: external-secrets-kubernetes-external-secrets
+      serviceAccountName: kubernetes-external-secrets
       containers:
         - name: kubernetes-external-secrets
           image: "ghcr.io/external-secrets/kubernetes-external-secrets:8.3.0"
