@@ -204,10 +204,10 @@ controller:
 
   resources: {}
   #  limits:
-  #    cpu: 100m
+  #    cpu: "100m"
   #    memory: 64Mi
   #  requests:
-  #    cpu: 100m
+  #    cpu: "100m"
   #    memory: 64Mi
 
   autoscaling:
@@ -482,10 +482,10 @@ defaultBackend:
 
   resources: {}
   # limits:
-  #   cpu: 10m
+  #   cpu: "10m"
   #   memory: 20Mi
   # requests:
-  #   cpu: 10m
+  #   cpu: "10m"
   #   memory: 20Mi
 
   service:

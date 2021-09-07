@@ -3,9 +3,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ template "mariadb.fullname" . }}
-  {{- if .Values.metrics.serviceMonitor.namespace }}
-  namespace: {{ .Values.metrics.serviceMonitor.namespace }}
-  {{- end }}
+  namespace: {{ .Values.metrics.serviceMonitor.namespace | default .Release.Namespace }}
   labels:
     app: "{{ template "mariadb.name" . }}"
     chart: {{ template "mariadb.chart" . }}

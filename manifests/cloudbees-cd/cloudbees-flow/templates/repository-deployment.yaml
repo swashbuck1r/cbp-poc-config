@@ -64,7 +64,7 @@ spec:
           - name: CBF_SERVER_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: cd-server-password
+                name: cloudbees-cd-password
                 key: CBF_SERVER_ADMIN_PASSWORD
           - name: CBF_SERVER_USER
             value: admin

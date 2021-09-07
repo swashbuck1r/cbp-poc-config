@@ -15,6 +15,7 @@ metadata:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
   name: {{ template "nginx-ingress.controller.fullname" . }}-admission
+  namespace: {{ .Release.Namespace }}
 spec:
 {{- if not .Values.controller.admissionWebhooks.service.omitClusterIP }}
   clusterIP: "{{ .Values.controller.admissionWebhooks.service.clusterIP }}"

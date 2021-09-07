@@ -68,7 +68,7 @@ spec:
           valueFrom:
             secretKeyRef:
 
-              name: cd-server-password
+              name: cloudbees-cd-password
 
               key: CBF_SERVER_ADMIN_PASSWORD
         - name: CBF_WEB_FQDN
@@ -92,14 +92,14 @@ spec:
           valueFrom:
             secretKeyRef:
 
-              name: cloudbees-cd-cloudbees-flow-db
+              name: cloudbees-cd-mariadb
 
               key: DB_USER
         - name: CBF_DB_PASSWORD
           valueFrom:
             secretKeyRef:
 
-              name: cloudbees-cd-cloudbees-flow-db
+              name: cloudbees-cd-mariadb
 
               key: DB_PASSWORD
 

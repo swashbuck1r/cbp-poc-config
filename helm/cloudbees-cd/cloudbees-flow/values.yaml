@@ -101,10 +101,10 @@ server:
 
   resources:
     limits:
-      cpu: 4
+      cpu: "4"
       memory: 6Gi
     requests:
-      cpu: 1.5
+      cpu: "1.5"
       memory: 6Gi
 
   nodeSelector: {}
@@ -172,10 +172,10 @@ web:
 
   resources:
     limits:
-      cpu: 1
+      cpu: "1"
       memory: 512Mi
     requests:
-      cpu: 0.25
+      cpu: "0.25"
       memory: 256Mi
 
   nodeSelector: {}
@@ -238,10 +238,10 @@ repository:
 
   resources:
     requests:
-      cpu: 0.25
+      cpu: "0.25"
       memory: 512Mi
     limits:
-      cpu: 0.25
+      cpu: "0.25"
       memory: 1024Mi
 
   nodeSelector: {}
@@ -322,10 +322,10 @@ dois:
 
   resources:
     limits:
-      cpu: 1
+      cpu: "1"
       memory: 3Gi
     requests:
-      cpu: 0.1
+      cpu: "0.1"
       memory: 2Gi
 
   nodeSelector: {}
@@ -375,10 +375,10 @@ boundAgent:
 
   resources:
     limits:
-      cpu: 0.25
+      cpu: "0.25"
       memory: 1024Mi
     requests:
-      cpu: 0.25
+      cpu: "0.25"
       memory: 512Mi
 
   nodeSelector: {}

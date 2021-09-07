@@ -3,6 +3,7 @@ apiVersion: {{ template "podSecurityPolicy.apiVersion" . }}
 kind: PodSecurityPolicy
 metadata:
   name: {{ template "nginx-ingress.fullname" . }}-backend
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "nginx-ingress.name" . }}
     chart: {{ template "nginx-ingress.chart" . }}
