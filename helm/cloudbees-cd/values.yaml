@@ -2,8 +2,11 @@ flowCredentials:
   existingSecret: cloudbees-cd-password
 
 database:
-  existingSecret: cloudbees-cd-mariadb
+  existingSecret: cloudbees-cd-db
 
 dois:
   credentials:
     existingSecret: cloudbees-cd-dois
+
+mariadb:
+  existingSecret: cloudbees-cd-mariadb
