@@ -4,6 +4,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: "cloudbees-cd-customscript"
+  namespace: cloudbees-cd
   labels:
     app: cloudbees-flow
     chart: cloudbees-flow

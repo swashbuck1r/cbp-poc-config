@@ -4,6 +4,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: mariadb
+  namespace: cloudbees-cd
   labels:
     app: mariadb
     chart: mariadb-7.0.1

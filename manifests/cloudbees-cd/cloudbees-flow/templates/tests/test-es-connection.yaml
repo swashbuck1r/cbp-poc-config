@@ -4,6 +4,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: flow-devopsinsight-test-connection
+  namespace: cloudbees-cd
   labels:
     app: flow-devopsinsight
     chart: cloudbees-flow

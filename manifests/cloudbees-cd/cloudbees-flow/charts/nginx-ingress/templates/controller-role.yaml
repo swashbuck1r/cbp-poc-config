@@ -9,6 +9,7 @@ metadata:
     heritage: Helm
     release: cloudbees-cd
   name: cloudbees-cd-nginx-ingress
+  namespace: cloudbees-cd
 rules:
   - apiGroups:
       - ""

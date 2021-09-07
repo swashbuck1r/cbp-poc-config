@@ -10,6 +10,7 @@ metadata:
     heritage: Helm
     release: cloudbees-cd
   name: cloudbees-cd-nginx-ingress-tcp
+  namespace: cloudbees-cd
 data:
   "8200": 'cloudbees-cd/flow-repository:8200'
   "8443": 'cloudbees-cd/flow-server:8443'

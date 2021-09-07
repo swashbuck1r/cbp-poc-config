@@ -4,6 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flow-web
+  namespace: cloudbees-cd
   labels:
     app: flow-web
     chart: cloudbees-flow

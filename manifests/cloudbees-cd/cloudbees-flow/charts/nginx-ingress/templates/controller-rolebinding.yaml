@@ -9,6 +9,7 @@ metadata:
     heritage: Helm
     release: cloudbees-cd
   name: cloudbees-cd-nginx-ingress
+  namespace: cloudbees-cd
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role

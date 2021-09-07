@@ -10,5 +10,6 @@ metadata:
     heritage: Helm
     release: cloudbees-cd
   name: cloudbees-cd-nginx-ingress-controller
+  namespace: cloudbees-cd
 data:
   proxy-stream-timeout: 4000s

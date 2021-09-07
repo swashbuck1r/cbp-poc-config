@@ -4,6 +4,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mariadb-tests
+  namespace: cloudbees-cd
 data:
   run.sh: |-
     @test "Testing MariaDB is accessible" {

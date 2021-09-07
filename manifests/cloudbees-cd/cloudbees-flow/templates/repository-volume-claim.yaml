@@ -4,6 +4,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: "flow-repo-artifacts"
+  namespace: cloudbees-cd
 spec:
   accessModes:
     - "ReadWriteOnce"

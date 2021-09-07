@@ -4,6 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: flow-bound-agent
+  namespace: cloudbees-cd
   labels:
     app: flow-bound-agent
     chart: cloudbees-flow

@@ -10,6 +10,7 @@ metadata:
     heritage: Helm
     release: cloudbees-cd
   name: cloudbees-cd-nginx-ingress-default-backend
+  namespace: cloudbees-cd
 spec:
   selector:
     matchLabels:

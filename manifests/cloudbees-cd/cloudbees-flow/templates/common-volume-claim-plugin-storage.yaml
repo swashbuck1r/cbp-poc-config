@@ -4,6 +4,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: "flow-server-shared"
+  namespace: cloudbees-cd
 spec:
   accessModes:
     - "ReadWriteOnce"
