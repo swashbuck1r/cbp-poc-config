@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: flow-server-custom-config-files
+  namespace: {{ .Release.Namespace }}
   labels:
     app: cloudbees-flow
     chart: cloudbees-flow

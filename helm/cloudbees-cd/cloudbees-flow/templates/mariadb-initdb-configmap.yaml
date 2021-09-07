@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mariadb-initdb-scripts
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ .Chart.Name }}
     chart: {{ .Chart.Name }}

@@ -6,6 +6,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: "{{ .Values.storage.volumes.repositoryStorage.name }}"
+  namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
     - {{ .Values.storage.volumes.repositoryStorage.accessMode | default "ReadWriteOnce" | quote }}

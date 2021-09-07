@@ -5,6 +5,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: "{{ .Values.storage.volumes.boundAgentStorage.name }}"
+  namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
     - {{ .Values.storage.volumes.boundAgentStorage.accessMode | default "ReadWriteOnce" | quote }}

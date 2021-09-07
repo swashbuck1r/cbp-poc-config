@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: flow-logging-config
+  namespace: {{ .Release.Namespace }}
   labels:
     app: cloudbees-flow
     chart: cloudbees-flow

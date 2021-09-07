@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: flow-server
+  namespace: {{ .Release.Namespace }}
   labels:
     app: flow-server
     chart: {{ .Chart.Name }}

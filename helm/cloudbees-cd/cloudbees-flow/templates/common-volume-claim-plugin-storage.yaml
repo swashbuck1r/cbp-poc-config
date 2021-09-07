@@ -5,6 +5,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: "{{ .Values.storage.volumes.serverPlugins.name }}"
+  namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
 {{- if and ( not .Values.clusteredMode ) ( not .Values.storage.volumes.serverPlugins.storageClass ) }}

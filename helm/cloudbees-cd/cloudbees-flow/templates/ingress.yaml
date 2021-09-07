@@ -3,6 +3,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: flow-ingress
+  namespace: {{ .Release.Namespace }}
   labels:
     app: flow
     chart: {{ .Chart.Name }}

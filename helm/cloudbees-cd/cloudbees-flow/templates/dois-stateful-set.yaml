@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: flow-devopsinsight
+  namespace: {{ .Release.Namespace }}
   labels:
     app: flow-devopsinsight
     chart: {{ .Chart.Name }}

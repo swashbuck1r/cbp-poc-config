@@ -5,6 +5,7 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: flow-web
+  namespace: {{ .Release.Namespace }}
   labels:
     app: flow-web
     chart: {{ .Chart.Name }}
