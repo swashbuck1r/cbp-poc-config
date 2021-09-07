@@ -1,0 +1,148 @@
+{{- if or .Values.web.enabled .Values.repository.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flow-bound-agent
+  labels:
+    app: flow-bound-agent
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  strategy:
+    type: Recreate
+  replicas: {{ .Values.boundAgent.replicas }}
+  selector:
+    matchLabels:
+      app: flow-bound-agent
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: flow-bound-agent
+        release: {{ .Release.Name }}
+    spec:
+{{- with .Values.boundAgent.affinity }}
+      affinity:
+            {{ toYaml . | nindent 8 }}
+{{- end }}
+{{- with  .Values.boundAgent.tolerations }}
+      tolerations:
+            {{ toYaml . | nindent 8 }}
+{{- end }}
+{{- if .Values.boundAgent.nodeSelector }}
+      nodeSelector:
+            {{ toYaml .Values.boundAgent.nodeSelector | nindent 8 }}
+{{ else }}
+      nodeSelector:
+        {{ include "os.label" . }}: linux
+{{- end }}
+      serviceAccountName: {{ include "cloudbees-flow.serviceAccountName" . }}
+      {{- if eq .Values.securityContext.enabled true }}
+      securityContext:
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+      {{- end}}
+
+{{- if and ( and .Values.volumePermissions.enabled .Values.boundAgent.volumesPermissionsInitContainer.enabled ) (.Values.storage.volumes.boundAgentStorage.enabled) }}
+      initContainers:
+        - name: volumes-permissions
+          image: "{{- if .Values.images.registry }}{{ .Values.images.registry }}/{{- end }}{{ .Values.boundAgent.imageRepository }}:{{ .Values.images.tag }}"
+          imagePullPolicy: {{ .Values.images.pullPolicy }}
+          securityContext:
+            runAsUser: 0
+          volumeMounts:
+          - name: bound-agent-workspace-volume
+            mountPath: /workspace
+          command:
+          - sh
+          - -c
+          - |
+            set -e
+            set -x
+            chown -R {{ .Values.securityContext.runAsUser }}:{{ .Values.securityContext.fsGroup }} /workspace
+          resources:
+            limits:
+              cpu: "25m"
+              memory: "128Mi"
+            requests:
+              cpu: "25m"
+              memory: "128Mi"
+{{- end }}
+      containers:
+        - name: flow-agent
+          image: "{{- if .Values.images.registry }}{{ .Values.images.registry }}/{{- end }}{{ .Values.boundAgent.imageRepository }}:{{ .Values.images.tag }}"
+          imagePullPolicy: {{ .Values.images.pullPolicy }}
+          env:
+          - name: CBF_RESOURCE_NAME
+            value: local
+          - name: CBF_RESOURCE_POOLS
+            value: "default"
+          - name: PUBLIC_HOSTNAME
+            value: flow-bound-agent
+{{- if .Values.serverName }}
+          - name: CBF_SERVER_HOST
+            value: {{ .Values.serverName | quote }}
+          - name: CBF_SERVER_USER
+            value: admin
+          - name: CBF_SERVER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+{{- if .Values.flowCredentials.existingSecret }}
+                name: {{ .Values.flowCredentials.existingSecret }}
+{{- else }}
+                name: {{ template "cloudbees-flow.fullname" . }}-credentials
+{{- end }}
+                key: CBF_SERVER_ADMIN_PASSWORD
+{{- end }}
+          - name: CBF_CONFIGURE
+            value: {{ .Values.boundAgent.ecconfigure }}
+{{- if .Values.boundAgent.extraEnvs }}
+{{ toYaml .Values.boundAgent.extraEnvs | indent 10 }}
+{{- end }}
+          readinessProbe:
+            tcpSocket:
+              port: 7800
+            initialDelaySeconds: 60
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command: ["/opt/cbflow/health-check"]
+            initialDelaySeconds: 60
+            periodSeconds: 10
+          lifecycle:
+            preStop:
+              exec:
+                command: ["/bin/bash", "-c", "ectool --server $CBF_SERVER_HOST deleteResource $HOSTNAME"]
+            postStart:
+              exec:
+                command: ["/bin/bash", "/custom-scripts/custom-install.sh"]
+          ports:
+          - containerPort: 7800
+            name: p4-agent
+            protocol: TCP
+          resources:
+{{ toYaml .Values.boundAgent.resources | indent 12 }}
+          volumeMounts:
+{{- if .Values.storage.volumes.boundAgentStorage.enabled }}
+          - name: bound-agent-workspace-volume
+            mountPath: /workspace
+{{- end }}
+          - name: logback-config
+            mountPath: /custom-config/agent/logback-local.groovy
+            subPath: agent-logback-config
+          - name: customscript-config
+            mountPath: /custom-scripts
+      volumes:
+{{- if .Values.storage.volumes.boundAgentStorage.enabled }}
+      - name: bound-agent-workspace-volume
+        persistentVolumeClaim:
+           claimName: {{ .Values.storage.volumes.boundAgentStorage.name }}
+{{- end }}
+      - name: logback-config
+        configMap:
+          name: flow-logging-config
+      - name: customscript-config
+        secret:
+          secretName: "{{ .Release.Name }}-agent-customscript"
+{{- end }}

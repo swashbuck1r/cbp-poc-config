@@ -1,0 +1,18 @@
+dependencies:
+- name: mariadb
+  repository: https://charts.helm.sh/stable
+  version: 7.0.1
+- name: zookeeper
+  repository: https://charts.helm.sh/incubator
+  version: 2.1.1
+- name: nginx-ingress
+  repository: https://charts.helm.sh/stable
+  version: 1.25.0
+- name: cloudbees-flow-agent
+  repository: ""
+  version: "2"
+- name: cloudbees-flow-agent
+  repository: ""
+  version: "2"
+digest: sha256:1983a5927c1479b8a2e075d037f13004fd1779f5851537630a5768017f7447c0
+generated: "2021-08-05T17:24:26.698279913Z"

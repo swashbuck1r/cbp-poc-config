@@ -1,0 +1,22 @@
+{{- if .Values.storage.volumes.boundAgentStorage.enabled -}}
+{{- if not .Values.storage.volumes.boundAgentStorage.existingClaim -}}
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: "{{ .Values.storage.volumes.boundAgentStorage.name }}"
+spec:
+  accessModes:
+    - {{ .Values.storage.volumes.boundAgentStorage.accessMode | default "ReadWriteOnce" | quote }}
+  resources:
+    requests:
+      storage: "{{ .Values.storage.volumes.boundAgentStorage.storage }}"
+      {{- if .Values.storage.volumes.boundAgentStorage.storageClass }}
+      {{- if (eq "-" .Values.storage.volumes.boundAgentStorage.storageClass) }}
+  storageClassName: ""
+      {{- else }}
+  storageClassName: {{ .Values.storage.volumes.boundAgentStorage.storageClass | quote }}
+      {{- end }}
+      {{- end }}
+{{- end }}
+{{- end }}

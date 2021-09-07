@@ -1,0 +1,74 @@
+{{- if and .Values.ingress.enabled (not (include "cloudbees-flow.is-openshift" .)) -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: flow-ingress
+  labels:
+    app: flow
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+{{ toYaml .Values.ingress.annotations | indent 4 }}
+spec:
+{{- if or .Values.ingress.certificate.existingSecret .Values.ingress.certificate.crt  }}
+{{- if .Values.ingress.host }}
+  tls:
+    - hosts:
+      - {{ .Values.ingress.host }}
+{{- if .Values.ingress.certificate.existingSecret }}
+      secretName: {{ .Values.ingress.certificate.existingSecret | quote }}
+{{- else if and .Values.ingress.certificate.crt .Values.ingress.certificate.key }}
+      secretName: "flow-tls-secret"
+{{- end }}
+{{- end }}
+{{- end }}
+  rules:
+    - host: {{ .Values.ingress.host}}
+{{- if .Values.web.enabled }}
+{{- if .Values.sda }}
+      http:
+        paths:
+        - path: /flow
+          backend:
+            serviceName: flow-web
+            servicePort: 80
+        - path: /flow/*
+          backend:
+            serviceName: flow-web
+            servicePort: 80
+        - path: /commander
+          backend:
+            serviceName: flow-web
+            servicePort: 80
+        - path: /commander/*
+          backend:
+            serviceName: flow-web
+            servicePort: 80
+        - path: /auth
+          backend:
+            serviceName: flow-web
+            servicePort: 80
+        - path: /auth/*
+          backend:
+            serviceName: flow-web
+            servicePort: 80
+        - path: /rest
+          backend:
+            serviceName: flow-web
+            servicePort: 80
+        - path: /rest/*
+          backend:
+            serviceName: flow-web
+            servicePort: 80
+{{- else }}
+      http:
+        paths:
+          - backend:
+              serviceName: flow-web
+              servicePort: 80
+{{- end }}
+{{- end }}
+{{- end }}
+
+

@@ -1,0 +1,77 @@
+suite: CloudBees Flow Repository Deployment
+templates:
+  - repository-deployment.yaml
+tests:
+  - it: repository-zoneName - repository should use specified zone name
+    set:
+      repository.zoneName: testZone
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isKind: { of: Deployment }
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: CBF_ZONE_NAME
+            value: testZone
+  - it: repository-zoneName - repository should use no zone name by default
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isKind: { of: Deployment }
+      - notContains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: CBF_ZONE_NAME
+  - it: repository-serviceEndpoint - repository should use 'flow-repository' by default
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isKind: { of: Deployment }
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: PUBLIC_HOSTNAME
+            value: flow-repository
+  - it: repository-serviceEndpoint - repository should use serverName value if it is customized and flow server is enabled
+    set:
+      serverName: testName
+      server.enabled: true
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isKind: { of: Deployment }
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: PUBLIC_HOSTNAME
+            value: testName
+# fail scenarios are not implemented yet
+# https://github.com/lrills/helm-unittest/issues/82
+#  - it: repository-serviceEndpoint - fail when Flow server is disabled and service name is not configured
+#    set:
+#      server.enabled: false
+#    asserts:
+#      shouldFail:
+  - it: repository-serviceEndpoint - repository should use the provided serviceEndpoint when Flow server is disabled
+    set:
+      server.enabled: false
+      repository.serviceEndpoint: testName1
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isKind: { of: Deployment }
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: PUBLIC_HOSTNAME
+            value: testName1
+  - it: repository-serviceEndpoint - repository should use the provided serviceEndpoint when Flow server is disabled (templated)
+    set:
+      server.enabled: false
+      test: "foo"
+      repository.serviceEndpoint: "{{ .Values.test }}-bar"
+    asserts:
+      - hasDocuments: { count: 1 }
+      - isKind: { of: Deployment }
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: PUBLIC_HOSTNAME
+            value: foo-bar
+

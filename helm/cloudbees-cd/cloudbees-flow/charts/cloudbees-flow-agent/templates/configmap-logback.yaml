@@ -1,0 +1,24 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Values.releaseNamePrefix | default .Release.Name }}-logging-config"
+  labels:
+    app: flow-agent
+    chart: cloudbees-flow-agent
+data:
+  agent-logback-config: |
+    //import ch.qos.logback.classic.net.SocketAppender
+    //
+    //appender("SOCKET", SocketAppender) {
+    //    port=4560
+    //    remoteHost="localhost"
+    //}
+    //
+    //if (useSetup) {
+    //    root(TRACE, ["ASYNC_FILE", "ASYNC_SETUP_FILE", "SOCKET"])
+    //} else {
+    //    root(TRACE, ["ASYNC_FILE", "SOCKET"])
+    //}
+
+    logger "com.electriccloud.commander.agent", {{ .Values.logLevel }}
+

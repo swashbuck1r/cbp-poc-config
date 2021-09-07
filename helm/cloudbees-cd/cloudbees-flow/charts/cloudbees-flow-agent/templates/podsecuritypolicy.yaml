@@ -1,0 +1,56 @@
+{{- if .Values.podSecurityPolicy.create }}
+{{- if not .Values.rbac.create -}}
+{{ fail "\n\nERROR: Setting podSecurityPolicy.create=true requires rbac.create=true" }}
+{{- end -}}
+{{- if not .Values.securityContext.enabled -}}
+{{ fail "\n\nERROR: Setting podSecurityPolicy.create=true requires securityContext.enabled=true" }}
+{{- end -}}
+apiVersion: policy/v1beta1
+kind: PodSecurityPolicy
+metadata:
+  name: cbflowagent-psp-{{ .Values.releaseNamePrefix | default .Release.Name }}
+  labels:
+    app: cbflowagent-psp-{{ .Values.releaseNamePrefix | default .Release.Name }}
+    chart: {{ .Chart.Name }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  privileged: false
+  # Required to prevent escalations to root.
+  allowPrivilegeEscalation: false
+  # This is redundant with non-root + disallow privilege escalation,
+  # but we can provide it for defense in depth.
+  requiredDropCapabilities:
+    - ALL
+  # Allow core volume types. Disallow hostpath
+  volumes:
+    - 'configMap'
+    - 'downwardAPI'
+    - 'emptyDir'
+    - 'projected'
+    - 'persistentVolumeClaim'
+    - 'secret'
+  hostNetwork: false
+  hostIPC: false
+  hostPID: false
+  runAsUser:
+    rule: 'MustRunAs'
+    ranges:
+      - min: {{ .Values.securityContext.runAsUser }}
+        max: {{ .Values.securityContext.runAsUser }}
+  seLinux:
+    rule: 'RunAsAny'
+  supplementalGroups:
+    rule: 'MustRunAs'
+    ranges:
+      # Forbid adding the root group.
+      - min: 1
+        max: 65535
+  fsGroup:
+    rule: 'MustRunAs'
+    ranges:
+      # Forbid adding the root group.
+      - min: 1
+        max: 65535
+  readOnlyRootFilesystem: false
+{{- end }}
