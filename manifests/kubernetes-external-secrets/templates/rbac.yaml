@@ -43,7 +43,7 @@ roleRef:
   name: external-secrets-kubernetes-external-secrets
 subjects:
   - name: external-secrets-kubernetes-external-secrets
-    namespace: "secrets-infra"
+    namespace: "secret-infra"
     kind: ServiceAccount
 ---
 # Source: kubernetes-external-secrets/templates/rbac.yaml
@@ -62,5 +62,5 @@ roleRef:
   name: system:auth-delegator
 subjects:
 - name: external-secrets-kubernetes-external-secrets
-  namespace: "secrets-infra"
+  namespace: "secret-infra"
   kind: ServiceAccount
