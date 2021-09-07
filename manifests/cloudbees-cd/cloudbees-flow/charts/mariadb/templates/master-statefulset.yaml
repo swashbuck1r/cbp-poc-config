@@ -65,14 +65,14 @@ spec:
             - name: MARIADB_ROOT_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mariadb-initdb-secret
+                  name: cloudbees-cd-mariadb
                   key: mariadb-root-password
             - name: MARIADB_USER
               value: "flow"
             - name: MARIADB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: mariadb-initdb-secret
+                  name: cloudbees-cd-mariadb
                   key: mariadb-password
             - name: MARIADB_DATABASE
               value: "my_database"

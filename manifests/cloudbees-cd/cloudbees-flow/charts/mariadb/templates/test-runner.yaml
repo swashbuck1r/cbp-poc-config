@@ -3,7 +3,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "mariadb-test-w1pva"
+  name: "mariadb-test-unz0j"
   namespace: cloudbees-cd
   annotations:
     "helm.sh/hook": test-success
@@ -30,7 +30,7 @@ spec:
         - name: MARIADB_ROOT_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mariadb-initdb-secret
+              name: cloudbees-cd-mariadb
               key: mariadb-root-password
       volumeMounts:
       - mountPath: /tests

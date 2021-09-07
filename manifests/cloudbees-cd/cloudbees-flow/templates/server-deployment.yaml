@@ -92,14 +92,14 @@ spec:
           valueFrom:
             secretKeyRef:
 
-              name: cloudbees-cd-mariadb
+              name: cloudbees-cd-db
 
               key: DB_USER
         - name: CBF_DB_PASSWORD
           valueFrom:
             secretKeyRef:
 
-              name: cloudbees-cd-mariadb
+              name: cloudbees-cd-db
 
               key: DB_PASSWORD
 
