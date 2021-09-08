@@ -29,7 +29,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: flow-agent
-          image: "docker.io/cloudbees/cbflow-agent:10.2.1.150122_3.0_20210802"
+          image: "docker.io/cloudbees/cbflow-agent:10.2.0.148735_2.1.22_20210527"
           imagePullPolicy: IfNotPresent
           env:
           - name: CBF_RESOURCE_NAME

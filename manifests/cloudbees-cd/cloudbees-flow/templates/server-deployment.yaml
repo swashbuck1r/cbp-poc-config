@@ -34,7 +34,7 @@ spec:
       serviceAccountName: default
       initContainers:
       - name: volumes-permissions
-        image: "docker.io/cloudbees/cbflow-server:10.2.1.150122_3.0_20210802"
+        image: "docker.io/cloudbees/cbflow-server:10.2.0.148735_2.1.22_20210527"
         imagePullPolicy: IfNotPresent
         securityContext:
           runAsUser: 0
@@ -57,7 +57,7 @@ spec:
             memory: "128Mi"
       containers:
       - name: flow-server
-        image: "docker.io/cloudbees/cbflow-server:10.2.1.150122_3.0_20210802"
+        image: "docker.io/cloudbees/cbflow-server:10.2.0.148735_2.1.22_20210527"
         imagePullPolicy: IfNotPresent
         env:
         - name: CBF_SERVER_HOST

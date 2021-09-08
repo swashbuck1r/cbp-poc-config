@@ -5,3 +5,6 @@ helm pull external-secrets/kubernetes-external-secrets --version 1.3.0 --untar
 
 helm template external-secrets external-secrets/kubernetes-external-secrets --namespace secret-infra --include-crds --output-dir ../../manifests -f values.yaml
 
+
+# cd ../../../flow-on-kubernetes
+# helm dep update charts/cloudbees-flow
