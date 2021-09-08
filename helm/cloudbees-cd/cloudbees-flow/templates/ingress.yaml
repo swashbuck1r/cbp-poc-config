@@ -32,40 +32,56 @@ spec:
         paths:
         - path: /flow
           backend:
-            serviceName: flow-web
-            servicePort: 80
+            service:
+              name: flow-web
+              port:
+                number: 80
         - path: /flow/*
           backend:
-            serviceName: flow-web
-            servicePort: 80
+            service:
+              name: flow-web
+              port:
+                number: 80
         - path: /commander
           backend:
-            serviceName: flow-web
-            servicePort: 80
+            service:
+              name: flow-web
+              port:
+                number: 80
         - path: /commander/*
           backend:
-            serviceName: flow-web
-            servicePort: 80
+            service:
+              name: flow-web
+              port:
+                number: 80
         - path: /auth
           backend:
-            serviceName: flow-web
-            servicePort: 80
+            service:
+              name: flow-web
+              port:
+                number: 80
         - path: /auth/*
           backend:
-            serviceName: flow-web
-            servicePort: 80
+            service:
+              name: flow-web
+              port:
+                number: 80
         - path: /rest
           backend:
-            serviceName: flow-web
-            servicePort: 80
+            service:
+              name: flow-web
+              port:
+                number: 80
         - path: /rest/*
           backend:
-            serviceName: flow-web
-            servicePort: 80
+            service:
+              name: flow-web
+              port:
+                number: 80
 {{- else}}
   defaultBackend:
     service:
-      name: test
+      name: flow-web
       port:
         number: 80
 {{- end }}

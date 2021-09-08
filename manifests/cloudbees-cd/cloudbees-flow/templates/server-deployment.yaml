@@ -103,6 +103,8 @@ spec:
 
               key: DB_PASSWORD
 
+        - name: CBF_SERVER_SDA_MODE
+          value: "true"
         readinessProbe:
           tcpSocket:
             port: 8443

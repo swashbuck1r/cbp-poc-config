@@ -10,3 +10,6 @@ dois:
 
 mariadb:
   existingSecret: cloudbees-cd-mariadb
+
+# Use SDA-style URLs (/flow, /commander, etc)
+sda: true

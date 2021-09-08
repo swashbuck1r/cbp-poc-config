@@ -18,8 +18,55 @@ metadata:
     nginx.ingress.kubernetes.io/session-cookie-hash: sha1
     nginx.ingress.kubernetes.io/session-cookie-name: route
 spec:
-  defaultBackend:
-    service:
-      name: test
-      port:
-        number: 80
+  rules:
+    - host: 
+      http:
+        paths:
+        - path: /flow
+          backend:
+            service:
+              name: flow-web
+              port:
+                number: 80
+        - path: /flow/*
+          backend:
+            service:
+              name: flow-web
+              port:
+                number: 80
+        - path: /commander
+          backend:
+            service:
+              name: flow-web
+              port:
+                number: 80
+        - path: /commander/*
+          backend:
+            service:
+              name: flow-web
+              port:
+                number: 80
+        - path: /auth
+          backend:
+            service:
+              name: flow-web
+              port:
+                number: 80
+        - path: /auth/*
+          backend:
+            service:
+              name: flow-web
+              port:
+                number: 80
+        - path: /rest
+          backend:
+            service:
+              name: flow-web
+              port:
+                number: 80
+        - path: /rest/*
+          backend:
+            service:
+              name: flow-web
+              port:
+                number: 80
