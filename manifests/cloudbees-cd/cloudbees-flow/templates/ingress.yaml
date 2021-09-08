@@ -23,48 +23,56 @@ spec:
       http:
         paths:
         - path: /flow
+          pathType: Prefix
           backend:
             service:
               name: flow-web
               port:
                 number: 80
         - path: /flow/*
+          pathType: Prefix
           backend:
             service:
               name: flow-web
               port:
                 number: 80
         - path: /commander
+          pathType: Prefix
           backend:
             service:
               name: flow-web
               port:
                 number: 80
         - path: /commander/*
+          pathType: Prefix
           backend:
             service:
               name: flow-web
               port:
                 number: 80
         - path: /auth
+          pathType: Prefix
           backend:
             service:
               name: flow-web
               port:
                 number: 80
         - path: /auth/*
+          pathType: Prefix
           backend:
             service:
               name: flow-web
               port:
                 number: 80
         - path: /rest
+          pathType: Prefix
           backend:
             service:
               name: flow-web
               port:
                 number: 80
         - path: /rest/*
+          pathType: Prefix
           backend:
             service:
               name: flow-web
