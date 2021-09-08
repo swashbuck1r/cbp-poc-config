@@ -13,3 +13,9 @@ mariadb:
 
 # Use SDA-style URLs (/flow, /commander, etc)
 sda: true
+
+
+nginx-ingress:
+  enabled: false
+ingress: 
+  enabled: false
