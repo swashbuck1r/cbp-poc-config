@@ -34,7 +34,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: flow-web
-          image: "docker.io/cloudbees/cbflow-web:10.2.0.148735_2.1.22_20210527"
+          image: "docker.io/cloudbees/cbflow-web:build-10.3.0.150739_3.0.24_20210910"
           imagePullPolicy: IfNotPresent
           env:
           - name: CBF_WEB_HOST
