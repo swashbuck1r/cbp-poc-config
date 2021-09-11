@@ -15,7 +15,7 @@ spec:
         app: example-app
     spec:
       containers:
-        - image: swashbuck1r/gitops-example-webapp:v3
+        - image: us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/example-app:0.0.1
           name: example-app
           ports:
             - containerPort: 3000
