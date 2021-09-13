@@ -19,3 +19,15 @@ nginx-ingress:
   enabled: false
 ingress: 
   enabled: false
+
+storage:
+  volumes:
+    serverPlugins:
+      name: flow-server-shared
+      existingClaim: true
+
+images:
+  registry: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images"
+  imageRepository: ""
+  tag: "build-10.3.0.150739_3.0.24_20210910"
+  pullPolicy: IfNotPresent
