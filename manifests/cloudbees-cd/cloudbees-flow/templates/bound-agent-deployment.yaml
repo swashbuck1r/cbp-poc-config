@@ -29,7 +29,7 @@ spec:
       serviceAccountName: default
       containers:
         - name: flow-agent
-          image: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/cbflow-agent:build-10.3.0.150739_3.0.24_20210910"
+          image: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/cbflow-agent:release-10.2.1.150122_3.0_20210802"
           imagePullPolicy: IfNotPresent
           env:
           - name: CBF_RESOURCE_NAME

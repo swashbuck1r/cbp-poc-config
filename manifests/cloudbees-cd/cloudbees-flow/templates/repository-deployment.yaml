@@ -29,7 +29,7 @@ spec:
       serviceAccountName: default
       initContainers:
         - name: volumes-permissions
-          image: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/cbflow-repository:build-10.3.0.150739_3.0.24_20210910"
+          image: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/cbflow-repository:release-10.2.1.150122_3.0_20210802"
           imagePullPolicy: IfNotPresent
           securityContext:
             runAsUser: 0
@@ -52,7 +52,7 @@ spec:
               memory: "128Mi"
       containers:
         - name: flow-repository
-          image: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/cbflow-repository:build-10.3.0.150739_3.0.24_20210910"
+          image: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/cbflow-repository:release-10.2.1.150122_3.0_20210802"
           imagePullPolicy: IfNotPresent
           env:
           - name: CBF_REPOSITORY_NAME
