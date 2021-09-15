@@ -58,7 +58,7 @@ spec:
           - name: CBF_TRUSTED_AGENT
             value: "false"
           - name: CBF_SERVER_HOST
-            value: flow-server
+            value: flow-server.cloudbees-cd
           - name: CBF_SERVER_USER
             valueFrom:
               secretKeyRef:
