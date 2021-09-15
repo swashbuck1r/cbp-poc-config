@@ -35,3 +35,7 @@ images:
 
 
 # clusteredMode: true
+
+flowLicense:
+  # Pass existing secret name with license data here.
+  existingSecret: cloudbees-cd-license
