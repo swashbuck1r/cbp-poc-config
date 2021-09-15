@@ -151,6 +151,9 @@ spec:
         - name: init-scripts
           mountPath: /opt/cbflow/server/setup/01_setupRemoteRepository.pl
           subPath: register_repo.pl
+        - name: license
+          mountPath: /custom-config/license.xml
+          subPath: CBF_LICENSE
         - name: customscript-config
           mountPath: /custom-scripts
         - name: plugins-volume
@@ -172,3 +175,6 @@ spec:
       - name: init-scripts
         configMap:
           name: flow-init-scripts
+      - name: license
+        secret:
+          secretName: cloudbees-cd-license
