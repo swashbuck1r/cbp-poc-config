@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: "{{ .Values.releaseNamePrefix | default .Release.Name }}-flow-agents"
+  namespace: {{ .Release.Namespace }}
   labels:
     app: "{{ .Values.releaseNamePrefix | default .Release.Name }}-flow-agent-service"
     chart: {{ .Chart.Name }}

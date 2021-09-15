@@ -9,6 +9,7 @@ apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
   name: cbflowagent-psp-{{ .Values.releaseNamePrefix | default .Release.Name }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: cbflowagent-psp-{{ .Values.releaseNamePrefix | default .Release.Name }}
     chart: {{ .Chart.Name }}

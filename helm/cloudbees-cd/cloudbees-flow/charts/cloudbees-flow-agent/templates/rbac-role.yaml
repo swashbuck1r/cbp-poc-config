@@ -3,6 +3,7 @@ kind: Role
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: cbflowagent-role-{{ .Values.releaseNamePrefix | default .Release.Name }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: cbflowagent-role-{{ .Values.releaseNamePrefix | default .Release.Name }}
     chart: {{ .Chart.Name }}

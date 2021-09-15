@@ -1,0 +1,21 @@
+---
+# Source: cloudbees-flow-agent/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "cloudbees-cd-agent-cloudbees-flow-agent-test-connection"
+  labels:
+    app.kubernetes.io/name: cloudbees-flow-agent
+    helm.sh/chart: cloudbees-flow-agent-2.10.3
+    app.kubernetes.io/instance: cloudbees-cd-agent
+    app.kubernetes.io/version: "10.3.x"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: mwendler/wget
+      command: ['sh']
+      args:  ['-c', 'ec=0;for i in $0; do wget --no-check-certificate "https://$i:7800/showError?code=200"; ec=$((ec+$?)); done; exit $ec', cloudbees-cd-agent-flow-agent-0.cloudbees-cd-agent-flow-agents.cloudbees-agents.svc.cluster.local]
+  restartPolicy: Never

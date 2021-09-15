@@ -4,6 +4,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: {{ .Values.storage.volumes.agentWorkspace.name }}
+  namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
     - {{ .Values.storage.volumes.agentWorkspace.accessMode }}

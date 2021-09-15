@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: "{{ .Values.releaseNamePrefix | default .Release.Name }}-flow-agent"
+  namespace: {{ .Release.Namespace }}
   labels:
     app: "{{ .Values.releaseNamePrefix | default .Release.Name }}-flow-agent"
     chart: {{ .Chart.Name }}

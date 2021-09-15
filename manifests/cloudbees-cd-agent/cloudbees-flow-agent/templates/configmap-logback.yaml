@@ -1,8 +1,10 @@
+---
+# Source: cloudbees-flow-agent/templates/configmap-logback.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: "{{ .Values.releaseNamePrefix | default .Release.Name }}-logging-config"
-  namespace: {{ .Release.Namespace }}
+  name: "cloudbees-cd-agent-logging-config"
+  namespace: cloudbees-agents
   labels:
     app: flow-agent
     chart: cloudbees-flow-agent
@@ -21,5 +23,4 @@ data:
     //    root(TRACE, ["ASYNC_FILE", "SOCKET"])
     //}
 
-    logger "com.electriccloud.commander.agent", {{ .Values.logLevel }}
-
+    logger "com.electriccloud.commander.agent", DEBUG

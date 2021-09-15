@@ -1,0 +1,23 @@
+---
+# Source: cloudbees-flow-agent/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: "cloudbees-cd-agent-flow-agents"
+  namespace: cloudbees-agents
+  labels:
+    app: "cloudbees-cd-agent-flow-agent-service"
+    chart: cloudbees-flow-agent
+    release: cloudbees-cd-agent
+    heritage: Helm
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: p2
+      port: 7800
+      protocol: TCP
+      targetPort: p4-agent
+  selector:
+    app: "cloudbees-cd-agent-flow-agent"
+    release: cloudbees-cd-agent
