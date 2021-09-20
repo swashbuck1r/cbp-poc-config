@@ -30,8 +30,8 @@ storage:
 images:
   registry: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images"
   imageRepository: ""
-  tag: "build-10.3.0.150739_3.0.24_20210910"
-  # tag: "release-10.2.1.150122_3.0_20210802"
+  # tag: "build-10.3.0.150739_3.0.24_20210910"
+  tag: "release-10.2.1.150122_3.0_20210802"
   pullPolicy: IfNotPresent
 
 
