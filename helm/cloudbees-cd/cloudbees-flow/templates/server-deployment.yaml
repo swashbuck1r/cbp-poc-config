@@ -107,8 +107,8 @@ spec:
               key: CBF_SERVER_ADMIN_PASSWORD
         - name: CBF_WEB_FQDN
           value: {{ .Values.ingress.host | default .Values.web.service.name | quote }}
-{{ if not (has .Values.database.dbType (list "mysql" "oracle" "sqlserver" "mariadb")) }}
-{{ required ".database.dbType has to be one of mysql oracle sqlserver" .dbtype}}
+{{ if not (has .Values.database.dbType (list "mysql" "oracle" "sqlserver" "mariadb" "postgresql")) }}
+{{ required ".database.dbType has to be one of mysql oracle sqlserver postgresql" .dbtype}}
 {{ end }}
         - name: CBF_DB_TYPE
           value: {{ required ".database.dbType is required for flow database configuration" .Values.database.dbType | quote }}

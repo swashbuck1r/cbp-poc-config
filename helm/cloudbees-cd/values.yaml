@@ -23,6 +23,7 @@ ingress:
 storage:
   volumes:
     serverPlugins:
+      accessMode: ReadWriteOnce
       name: flow-server-shared
       existingClaim: true
 
@@ -34,7 +35,7 @@ images:
   pullPolicy: IfNotPresent
 
 
-# clusteredMode: true
+clusteredMode: false
 
 flowLicense:
   # Pass existing secret name with license data here.
