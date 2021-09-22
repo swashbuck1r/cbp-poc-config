@@ -12,7 +12,8 @@ database:
   existingSecret: cloudbees-cd-db
 
   # The database hostname.
-  externalEndpoint: mysql
+  # externalEndpoint: mysql
+  clusterEndpoint: mysql
 
   ## The database port.
   dbPort: 3306

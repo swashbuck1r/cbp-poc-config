@@ -78,7 +78,7 @@ spec:
           value: "mysql"
         - name: CBF_DB_HOST
 
-          value: mariadb
+          value: mysql
 
 # This option doesn't work for nodes and when server already initialized.
 # Therefore, we only consider this option if server is started in demo mode.
