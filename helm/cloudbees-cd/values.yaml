@@ -2,7 +2,20 @@ flowCredentials:
   existingSecret: cloudbees-cd-password
 
 database:
+  ## The database type must be specified.
+  dbType: mysql
+
+  ## The database name must be specified.
+  dbName: commander
+
+  ## Set the name of the secret that contains the database user credentials.
   existingSecret: cloudbees-cd-db
+
+  # The database hostname.
+  externalEndpoint: mysql
+
+  ## The database port.
+  dbPort: 3306
 
 dois:
   credentials:

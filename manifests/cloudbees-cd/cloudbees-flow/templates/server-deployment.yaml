@@ -75,7 +75,7 @@ spec:
           value: 
 
         - name: CBF_DB_TYPE
-          value: "mariadb"
+          value: "mysql"
         - name: CBF_DB_HOST
 
           value: mariadb
@@ -87,7 +87,7 @@ spec:
         - name: CBF_DB_PORT
           value:  "3306"
         - name: CBF_DB_NAME
-          value: "demo"
+          value: "commander"
         - name: CBF_DB_USER
           valueFrom:
             secretKeyRef:
