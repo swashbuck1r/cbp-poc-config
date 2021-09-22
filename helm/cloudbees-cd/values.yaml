@@ -55,3 +55,7 @@ clusteredMode: false
 flowLicense:
   # Pass existing secret name with license data here.
   existingSecret: cloudbees-cd-license
+
+
+server:
+  customScript: echo "Hello custom script"  # will be replaced with server-script.sh content

@@ -9,4 +9,4 @@ metadata:
     app: cloudbees-flow
     chart: cloudbees-flow
 data:
-  custom-install.sh: ZWNobw==
+  custom-install.sh: ZWNobyAiSGVsbG8gd29ybGQiCmVjdG9vbCBpbXBvcnRMaWNlbnNlRGF0YSAvb3B0L2NiZmxvdy9jb25mL2xpY2Vuc2UueG1s
