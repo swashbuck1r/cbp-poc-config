@@ -10,8 +10,8 @@ metadata:
     chart: cloudbees-flow
 data:
     demo-db.sql: |-
-        CREATE DATABASE IF NOT EXISTS commander CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-        CREATE DATABASE IF NOT EXISTS commander_upgrade CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-        GRANT ALL PRIVILEGES ON commander.* TO 'flow'@'%';
-        GRANT ALL PRIVILEGES ON commander_upgrade.* TO 'flow'@'%';
+        CREATE DATABASE IF NOT EXISTS demo CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+        CREATE DATABASE IF NOT EXISTS demo_upgrade CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+        GRANT ALL PRIVILEGES ON demo.* TO 'flow'@'%';
+        GRANT ALL PRIVILEGES ON demo_upgrade.* TO 'flow'@'%';
         FLUSH PRIVILEGES;

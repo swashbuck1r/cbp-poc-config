@@ -75,10 +75,10 @@ spec:
           value: 
 
         - name: CBF_DB_TYPE
-          value: "mysql"
+          value: "mariadb"
         - name: CBF_DB_HOST
 
-          value: mysql
+          value: mariadb
 
 # This option doesn't work for nodes and when server already initialized.
 # Therefore, we only consider this option if server is started in demo mode.
@@ -87,7 +87,7 @@ spec:
         - name: CBF_DB_PORT
           value:  "3306"
         - name: CBF_DB_NAME
-          value: "commander"
+          value: "demo"
         - name: CBF_DB_USER
           valueFrom:
             secretKeyRef:
