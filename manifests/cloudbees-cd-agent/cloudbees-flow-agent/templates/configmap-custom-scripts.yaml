@@ -4,7 +4,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: "cloudbees-cd-agent-customscript"
-  namespace: cloudbees-agents
+  namespace: cloudbees-cd
   labels:
     app: flow-agent
     chart: cloudbees-flow-agent

@@ -8,4 +8,4 @@
 helm -n cloudbees-cd template cloudbees-cd ./cloudbees-flow --release-name --output-dir ../../manifests -f cloudbees-cd-demo.yaml -f values.yaml --set-file server.customScript=server-script.sh
 
 #generate the cloudbees-cd-agent yaml
-helm -n cloudbees-agents template cloudbees-cd-agent ./cloudbees-flow/charts/cloudbees-flow-agent --release-name --output-dir ../../manifests -f agent-values.yaml 
+helm -n cloudbees-cd template cloudbees-cd-agent ./cloudbees-flow/charts/cloudbees-flow-agent --release-name --output-dir ../../manifests -f agent-values.yaml 

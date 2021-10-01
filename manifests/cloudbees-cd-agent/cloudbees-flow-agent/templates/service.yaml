@@ -4,7 +4,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: "cloudbees-cd-agent-flow-agents"
-  namespace: cloudbees-agents
+  namespace: cloudbees-cd
   labels:
     app: "cloudbees-cd-agent-flow-agent-service"
     chart: cloudbees-flow-agent

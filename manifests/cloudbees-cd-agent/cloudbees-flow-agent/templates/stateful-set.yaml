@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: "cloudbees-cd-agent-flow-agent"
-  namespace: cloudbees-agents
+  namespace: cloudbees-cd
   labels:
     app: "cloudbees-cd-agent-flow-agent"
     chart: cloudbees-flow-agent
@@ -70,7 +70,7 @@ spec:
                 name: "cloudbees-cd-agent-credentials"
                 key: CBF_SERVER_PASSWORD
           - name: K8S_SERVICE_NAME
-            value: "cloudbees-cd-agent-flow-agents.cloudbees-agents"
+            value: "cloudbees-cd-agent-flow-agents.cloudbees-cd"
           - name: CBF_CONFIGURE
             value: --agentInitMemoryMB=16 --agentMaxMemoryMB=64
           readinessProbe:

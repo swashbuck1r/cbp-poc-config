@@ -17,5 +17,5 @@ spec:
     - name: wget
       image: mwendler/wget
       command: ['sh']
-      args:  ['-c', 'ec=0;for i in $0; do wget --no-check-certificate "https://$i:7800/showError?code=200"; ec=$((ec+$?)); done; exit $ec', cloudbees-cd-agent-flow-agent-0.cloudbees-cd-agent-flow-agents.cloudbees-agents.svc.cluster.local]
+      args:  ['-c', 'ec=0;for i in $0; do wget --no-check-certificate "https://$i:7800/showError?code=200"; ec=$((ec+$?)); done; exit $ec', cloudbees-cd-agent-flow-agent-0.cloudbees-cd-agent-flow-agents.cloudbees-cd.svc.cluster.local]
   restartPolicy: Never
