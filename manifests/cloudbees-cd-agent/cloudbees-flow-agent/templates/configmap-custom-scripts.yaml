@@ -1,0 +1,12 @@
+---
+# Source: cloudbees-flow-agent/templates/configmap-custom-scripts.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: "cloudbees-cd-agent-customscript"
+  namespace: cloudbees-cd
+  labels:
+    app: flow-agent
+    chart: cloudbees-flow-agent
+data:
+  custom-install.sh: ZWNobw==

@@ -1,0 +1,128 @@
+---
+# Source: cloudbees-flow-agent/templates/stateful-set.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: "cloudbees-cd-agent-flow-agent"
+  namespace: cloudbees-cd
+  labels:
+    app: "cloudbees-cd-agent-flow-agent"
+    chart: cloudbees-flow-agent
+    release: cloudbees-cd-agent
+    heritage: Helm
+spec:
+  serviceName: "cloudbees-cd-agent-flow-agents"
+  replicas: 1
+  podManagementPolicy: Parallel
+  selector:
+    matchLabels:
+      app: "cloudbees-cd-agent-flow-agent"
+      release: cloudbees-cd-agent
+  template:
+    metadata:
+      labels:
+        app: "cloudbees-cd-agent-flow-agent"
+        release: cloudbees-cd-agent
+    spec:
+      serviceAccountName: default
+      initContainers:
+      - name: volumes-permissions
+        image: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/nextgen-agent:0.0.3"
+        imagePullPolicy: IfNotPresent
+        securityContext:
+          runAsUser: 0
+        volumeMounts:
+        - name: flow-agent-workspace
+          mountPath: /workspace
+        command:
+        - sh
+        - -c
+        - |
+          set -e
+          set -x
+          chmod 1777 /workspace
+        resources:
+          limits:
+            cpu: "25m"
+            memory: "128Mi"
+          requests:
+            cpu: "25m"
+            memory: "128Mi"
+      containers:
+        - name: flow-agent
+          image: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/nextgen-agent:0.0.3"
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: CBF_RESOURCE_NAME
+            value: "cloudbees-cd-agent-^@ordinalIndex@^"
+          - name: CBF_TRUSTED_AGENT
+            value: "false"
+          - name: CBF_SERVER_HOST
+            value: flow-server.cloudbees-cd
+          - name: CBF_SERVER_USER
+            valueFrom:
+              secretKeyRef:
+                name: "cloudbees-cd-agent-credentials"
+                key: CBF_SERVER_USER
+          - name: CBF_SERVER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "cloudbees-cd-agent-credentials"
+                key: CBF_SERVER_PASSWORD
+          - name: K8S_SERVICE_NAME
+            value: "cloudbees-cd-agent-flow-agents.cloudbees-cd"
+          - name: CBF_CONFIGURE
+            value: --agentInitMemoryMB=16 --agentMaxMemoryMB=64
+          readinessProbe:
+            tcpSocket:
+              port: 7800
+            initialDelaySeconds: 25
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command: ["/opt/cbflow/health-check"]
+            initialDelaySeconds: 25
+            periodSeconds: 10
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/bash", "/custom-scripts/custom-install.sh"]
+            preStop:
+              exec:
+                command: ["/bin/bash", "-c", "ectool --server $CBF_SERVER_HOST deleteResource $HOSTNAME"]
+          ports:
+          - containerPort: 7800
+            name: p4-agent
+            protocol: TCP
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1024Mi
+            requests:
+              cpu: "0.25"
+              memory: 512Mi
+          volumeMounts:
+          - name: flow-agent-workspace
+            mountPath: /workspace
+          - name: logback-config
+            mountPath: /custom-config/agent/logback-local.groovy
+            subPath: agent-logback-config
+          - name: customscript-config
+            mountPath: /custom-scripts
+      volumes:
+      - name: logback-config
+        configMap:
+          name: "cloudbees-cd-agent-logging-config"
+      - name: customscript-config
+        secret:
+          secretName: "cloudbees-cd-agent-customscript"
+      - name: flow-agent-workspace
+  volumeClaimTemplates:
+    - metadata:
+        name: flow-agent-workspace
+      spec:
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: "5Gi"
