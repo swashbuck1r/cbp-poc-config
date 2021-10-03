@@ -1,7 +1,7 @@
 images:
   registry: "us-central1-docker.pkg.dev/fleet-cbp-poc/container-images"
   imageRepository: "nextgen-agent"
-  tag: "0.0.3"
+  tag: "0.0.4"
   pullPolicy: IfNotPresent
 
 #---------------------------------------------
