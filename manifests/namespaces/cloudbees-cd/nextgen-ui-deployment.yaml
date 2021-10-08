@@ -15,7 +15,7 @@ spec:
         app: nextgen-ui
     spec:
       containers:
-        - image: us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/nextgen-ui:0.1.2
+        - image: us-central1-docker.pkg.dev/fleet-cbp-poc/container-images/nextgen-ui:0.1.3
           name: nextgen-ui
           ports:
             - containerPort: 80
