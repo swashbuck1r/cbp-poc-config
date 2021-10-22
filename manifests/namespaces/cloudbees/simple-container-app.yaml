@@ -24,7 +24,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: simple-container-app
-  namespace: apps
+  namespace: cloudbees
   labels:
     app: simple-container-app
 spec:
